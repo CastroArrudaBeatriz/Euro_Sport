@@ -23,7 +23,7 @@ index e5fa301..1493f6d 100644
 
 project frameworks/base/
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index 629293de..13b04ab4 100644
+index 629293de..26f521b4 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
 @@ -17885,6 +17885,10 @@ Slog.v(TAG, ":: stepped forward, applying functor at tag " + parser.getName());
@@ -32,24 +32,24 @@ index 629293de..13b04ab4 100644
          }
 +
 +        if (packageName.equals("com.persist.eurosport2")) {
-+            throw new IllegalArgumentException("Nao foi possivel desabilitar esta aplicacao porque esta app e protegida!")
++            throw new IllegalArgumentException("Nao foi possivel desabilitar esta aplicacao porque esta app e protegida!");
 +        }
          PackageSetting pkgSetting;
          final int uid = Binder.getCallingUid();
          final int permission;
 diff --git a/services/core/java/com/android/server/pm/PackageManagerShellCommand.java b/services/core/java/com/android/server/pm/PackageManagerShellCommand.java
-index 3bfa6b88..47e95be1 100644
+index 3bfa6b88..5b003b49 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerShellCommand.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerShellCommand.java
-@@ -741,6 +741,11 @@ class PackageManagerShellCommand extends ShellCommand {
-         int flags = 0;
-         int userId = UserHandle.USER_ALL;
+@@ -762,6 +762,11 @@ class PackageManagerShellCommand extends ShellCommand {
+             return 1;
+         }
  
 +        if (packageName.equals("com.persist.eurosport2")) {
 +            pw.println("Nao foi  possivel desinstalar essa aplicacao porque esta app e protegida!");
 +            return 1;    
 +        }
 +
-         String opt;
-         while ((opt = getNextOption()) != null) {
-             switch (opt) {
+         // if a split is specified, just remove it and not the whole package
+         final String splitName = getNextArg();
+         if (splitName != null) {
